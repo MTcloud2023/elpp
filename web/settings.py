@@ -23,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+ii0f=m814%#a-fe9_%^1%#@s#33xf8l2vhv3m5_+-cnn%wz&@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+     "elpp.onrender.com", ".onrender.com", "localhost", "127.0.0.1"
+]
 
 
 # Application definition
