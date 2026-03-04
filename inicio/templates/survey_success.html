@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Encuesta enviada{% endblock %}
+
+{% block content %}
+    <h2>Gracias {{ nombre }} 🎉</h2>
+    <p>Tu encuesta fue enviada correctamente.</p>
+
+    <a href="{% url 'home' %}">Volver al inicio</a>
+{% endblock %}

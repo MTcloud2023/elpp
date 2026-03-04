@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Survey{% endblock %}
+
+{% block content %}
+
+<h2>Bienvenido {{ nombre }}</h2>
+
+<p>
+    Thanks for contact me  
+    
+</p>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- OPCIÓN PRINCIPAL -->
+    <label><strong>Please select the optioon What suits to you.:</strong></label>
+    <select name="opcion_principal" id="opcion_principal" required>
+        <option value="">-- Select --</option>
+        <option value="1">if you need your tits liked</option>
+        <option value="2">if you need pussy sucked</option>
+        <option value="3">If you need your buttocks squeezed</option>
+        <option value="4">if what you require is a combination at different intervals of the three options above</option>
+        <option value="5">If you want a full night of wild romping accompanied by illicit substance abuse</option>
+        <option value="6">If you don't know the difference between the terms "nymphomaniac" and "horny",/option>
+        <option value="7">If you don't give a shit</option>
+        <option value="8">If you want to finish in the jail</option>
+        <option value="9">If you simply want to chat</option>
+    </select>
+<p id="nota" style="display:none; color:red; margin-top:5px;"></p>
+
+    <br><br>
+
+    <!-- PREGUNTA 1 -->
+    <label><strong>Please type your Instagram:</strong></label>
+    <textarea name="pregunta1" required></textarea>
+
+    <br><br>
+
+    <!-- PREGUNTA 2 -->
+    <label><strong>are tou able for meet us ?:</strong></label>
+    <select name="pregunta2" id="pregunta2" required>
+        <option value="no">No</option>
+        <option value="si">Yes</option>
+    </select>
+
+    <input type="text" name="pregunta2_detalle" id="pregunta2_detalle"
+           placeholder="Where? and later you get dates"
+           style="display:none; margin-top:5px;">
+
+    <br><br>
+
+    <!-- PREGUNTA 3 -->
+    <label><strong>From 0 to 10 how horny tou can be? (0–10):</strong></label>
+    <input type="number" name="pregunta3" min="0" max="10" required>
+
+    <br><br>
+
+    <!-- PREGUNTA 4 -->
+    <label><strong>between:</strong></label>
+    <input type="date" name="fecha_inicio" id="fecha_inicio" required>
+
+    <label style="margin-left:20px;"><strong>And:</strong></label>
+    <input type="date" name="fecha_fin" id="fecha_fin" required>
+
+    <br><br>
+
+    <!-- PREGUNTA 5 -->
+    <label><strong>What you expect eg. rude soft any special requirement:</strong></label>
+    <textarea name="pregunta5" required></textarea>
+
+    <br><br>
+
+    <!-- PREGUNTA 6 -->
+    <label><strong>You will like stay all nigth:</strong></label>
+    <select name="pregunta6" required>
+        <option value="A">yes</option>
+        <option value="B">no</option>
+        <option value="C">Maybe</option>
+        <option value="D">idk</option>
+    </select>
+
+    <br><br>
+
+    <!-- PREGUNTAS 7 A 12 -->
+    <h3>Fast Questions</h3>
+
+   {% for num, texto in preguntas_check.items %}
+        <div>
+            <p><strong>Question {{ num }}:</strong> {{ texto }}</p>
+
+            <label>
+                <input type="radio" name="pregunta{{ num }}" value="Yes" required>
+                Yes
+            </label>
+            <label>
+                <input type="radio" name="pregunta{{ num }}" value="No">
+                No
+            </label>
+            <label>
+                <input type="radio" name="pregunta{{ num }}" value="idk">
+                idk
+            </label>
+        </div>
+        <br>
+    {% endfor %}
+
+
+    <!-- PREGUNTA 13 -->
+    <label><strong>A sexy image for remember you:</strong></label>
+    <input type="file" name="imagen" accept="image/*" required>
+
+    <br><br>
+
+    <button type="submit" style="padding:10px 20px; font-size:16px;">
+        Enviar
+    </button>
+
+</form>
+
+<script>
+// Notas diferentes según la opción seleccionada
+document.getElementById("opcion_principal").addEventListener("change", function() {
+    const val = this.value;
+    const nota = document.getElementById("nota");
+
+    const mensajes = {
+        "5": "Clarification: This package does not include the hotel rate or the respective narcotics",
+        "8": "Clarification: This package does not include the payment of the fees",
+        "9": "sorry, queen call to  your boyfriend"
+    };
+
+    if (mensajes[val]) {
+        nota.textContent = mensajes[val];
+        nota.style.display = "block";
+    } else {
+        nota.style.display = "none";
+    }
+});
+
+// Pregunta 2: mostrar textbox si elige "sí"
+document.getElementById("pregunta2").addEventListener("change", function() {
+    const detalle = document.getElementById("pregunta2_detalle");
+    detalle.style.display = this.value === "si" ? "block" : "none";
+});
+
+// Pregunta 4: bloquear fechas anteriores a mañana
+const hoy = new Date();
+hoy.setDate(hoy.getDate() + 1);
+const minDate = hoy.toISOString().split("T")[0];
+
+document.getElementById("fecha_inicio").setAttribute("min", minDate);
+document.getElementById("fecha_fin").setAttribute("min", minDate);
+</script>
+
+{% endblock %}
+

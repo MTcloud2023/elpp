@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Modo Especial{% endblock %}
+
+{% block content %}
+
+<h2>Special Sylwia Form. </h2>
+<p>Please fill the form below.</p>
+
+<form method="POST" action="{% url 'admin_view' %}">
+    {% csrf_token %}
+
+    <!-- Tarjeta 1: Pregunta con dropdown -->
+    <div style="
+        background: #e9f0ff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    ">
+        <h3>Are you able to go to dance? </h3>
+        <p>Select one option from the list:</p>
+
+        <select name="pregunta1" style="padding: 10px; width: 100%; border-radius: 5px;">
+            <option value="">-- Selecciona una opción --</option>
+            <option value="opcion1">Yes</option>
+            <option value="opcion2">No</option>
+            <option value="opcion3">Maybe</option>
+        </select>
+    </div>
+
+    <!-- Tarjeta 2: Rango de fechas -->
+    <div style="
+        background: #e9ffe9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    ">
+        <h3>If yes please add a date range</h3>
+        <p>Select a date range (its not allowed select before today):</p>
+
+        <label>From:</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio" style="padding: 10px; width: 100%; border-radius: 5px;">
+
+        <br><br>
+
+        <label>To:</label>
+        <input type="date" id="fecha_fin" name="fecha_fin" style="padding: 10px; width: 100%; border-radius: 5px;">
+    </div>
+
+    <!-- Tarjeta 3: Radio buttons -->
+    <div style="
+        background: #fff4e6;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    ">
+        <h3>are you able to stay so late ?</h3>
+        <p>Select one option :</p>
+
+        <label><input type="radio" name="pregunta3" value="yes"> Yes</label><br>
+        <label><input type="radio" name="pregunta3" value="no"> No</label><br>
+        <label><input type="radio" name="pregunta3" value="maybe"> Maybe</label><br>
+    </div>
+
+    <br><br>
+    <button type="submit" name="enviar_admin" style="padding: 10px 20px;">Enviar</button>
+</form>
+
+<script>
+    // --- Pregunta 2: Bloquear fechas anteriores a hoy ---
+    const hoy = new Date().toISOString().split("T")[0];
+    document.getElementById("fecha_inicio").setAttribute("min", hoy);
+    document.getElementById("fecha_fin").setAttribute("min", hoy);
+</script>
+
+{% endblock %}

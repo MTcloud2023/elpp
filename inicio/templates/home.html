@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+{% if not mostrar_formulario %}
+    <h2>Disclaimer</h2>
+    <p>Este sitio requiere que aceptes los términos antes de continuar.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="aceptar">Aceptar</button>
+    </form>
+
+{% else %}
+    <h2>Formulario</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Pls. type your name:</label>
+        <input type="text" id="nombre" name="nombre">
+
+        <br><br>
+
+        <label>
+            <input type="checkbox" id="admin" name="admin" onclick="toggleNameField()">
+            Are you Sylwia?
+        </label>
+
+        <br><br>
+
+        <button type="submit">Enviar</button>
+
+
+    </form>
+
+    <script>
+        function toggleNameField() {
+            const adminCheck = document.getElementById("admin");
+            const nameField = document.getElementById("nombre");
+
+            if (adminCheck.checked) {
+                nameField.value = "";
+                nameField.disabled = true;
+            } else {
+                nameField.disabled = false;
+            }
+        }
+    </script>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Why?{% endblock %}
+
+{% block content %}
+
+<h2>youre sexy ,provide me a answer</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div style="
+        background: #ffecec;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+    ">
+        <label>Why?</label>
+        <input type="text" name="motivo" style="padding: 10px; width: 100%; border-radius: 5px;">
+    </div>
+
+    <br>
+    <button type="submit" style="padding: 10px 20px;">Enviar</button>
+</form>
+
+{% endblock %}
